@@ -57,8 +57,21 @@ jobs:
         id: test-action
         uses: ./
         with:
-          fireblocks-secret: 'secret'
+          fireblocks-secret: |
+            secret
+            newline
+
           fireblocks-api-key: 'api-key'
       - name: Print Output
         id: output
-        run: ls -l ~/.config/fireblocks
+        run: |
+          ls -lR ~/.config/fireblocks ~/.config/solana
+          cat ~/.config/fireblocks/default.toml
+          echo ---
+          cat ~/.config/fireblocks/sandbox.toml
+          echo ---
+          cat ~/.config/fireblocks/sandbox.pem
+          echo ---
+          cat ~/.config/solana/id.json
+          echo ---
+          cat ~/.config/solana/cli/config.yml
