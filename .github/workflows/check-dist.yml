@@ -23,7 +23,7 @@ permissions:
 jobs:
   check-dist:
     name: Check dist/
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.RUNNER }}
 
     steps:
       - name: Checkout
