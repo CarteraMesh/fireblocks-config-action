@@ -1,24 +1,37 @@
-name: The name of your action here
-description: Provide a description here
-author: Your name or organization here
+name: 'Fireblocks Solana Config Manager'
+description:
+  'Sets up Fireblocks and Solana configuration files for testing with automatic
+  cleanup'
+author: 'dchimento'
 
 # Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:
-  icon: heart
-  color: red
+  icon: shield
+  color: orange
 
 # Define your inputs here.
 inputs:
-  milliseconds:
-    description: Your input description here
+  fireblocks-secret:
+    description: 'Fireblocks secret key content (PEM format)'
     required: true
-    default: '1000'
+  fireblocks-api-key:
+    description: 'Fireblocks API key'
+    required: true
+  fireblocks-vault:
+    description: 'Fireblocks vault ID'
+    required: false
+    default: '0'
+  solana-rpc-url:
+    description: 'Solana RPC URL'
+    required: false
+    default: 'https://api.devnet.solana.com'
 
 # Define your outputs here.
 outputs:
-  time:
-    description: Your output description here
+  config-path:
+    description: 'Path to the created configuration directory'
 
 runs:
   using: node20
   main: dist/index.js
+  post: dist/post.js
