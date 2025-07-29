@@ -29,10 +29,9 @@ steps:
   - name: Setup Fireblocks and Solana configs
     uses: CarteraMesh/fireblocks-config-action@v1
     with:
-      fireblocks-secret: ${{ secrets.FIREBLOCKS_SECRET }}
+      fireblocks-secret: |
+        ${{ secrets.FIREBLOCKS_SECRET }}
       fireblocks-api-key: ${{ secrets.FIREBLOCKS_API_KEY }}
-      fireblocks-vault: ${{ vars.FIREBLOCKS_VAULT }}
-      solana-rpc-url: ${{ vars.SOLANA_RPC_URL }}
 
   - name: Run your tests
     run: |
@@ -74,7 +73,8 @@ jobs:
       - name: Setup Fireblocks and Solana configs
         uses: CarteraMesh/fireblocks-config-action@v1
         with:
-          fireblocks-secret: ${{ secrets.FIREBLOCKS_SECRET }}
+          fireblocks-secret: |
+            ${{ secrets.FIREBLOCKS_SECRET }}
           fireblocks-api-key: ${{ secrets.FIREBLOCKS_API_KEY }}
           fireblocks-vault: ${{ vars.FIREBLOCKS_VAULT }}
           solana-rpc-url: ${{ vars.SOLANA_RPC_URL }}
