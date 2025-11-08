@@ -90,12 +90,13 @@ jobs:
 
 ## Inputs
 
-| Input                | Description                                | Required | Default                           |
-| -------------------- | ------------------------------------------ | -------- | --------------------------------- |
-| `fireblocks-secret`  | Fireblocks secret key content (PEM format) | ✅       | -                                 |
-| `fireblocks-api-key` | Fireblocks API key                         | ✅       | -                                 |
-| `fireblocks-vault`   | Fireblocks vault ID                        | ❌       | `"0"`                             |
-| `solana-rpc-url`     | Solana RPC URL                             | ❌       | `"https://api.devnet.solana.com"` |
+| Input                 | Description                                | Required | Default                               |
+| --------------------- | ------------------------------------------ | -------- | ------------------------------------- |
+| `fireblocks-secret`   | Fireblocks secret key content (PEM format) | ✅       | -                                     |
+| `fireblocks-api-key`  | Fireblocks API key                         | ✅       | -                                     |
+| `fireblocks-vault`    | Fireblocks vault ID                        | ❌       | `"0"`                                 |
+| `fireblocks-endpoint` | Fireblocks API endpoint URL                | ❌       | `"https://sandbox-api.fireblocks.io"` |
+| `solana-rpc-url`      | Solana RPC URL                             | ❌       | `"https://api.devnet.solana.com"`     |
 
 ## Outputs
 

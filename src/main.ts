@@ -15,6 +15,7 @@ export async function run(): Promise<void> {
     const fireblocksSecret = core.getInput('fireblocks-secret')
     const fireblocksApiKey = core.getInput('fireblocks-api-key')
     const fireblocksVault = core.getInput('fireblocks-vault')
+    const fireblocksEndpoint = core.getInput('fireblocks-endpoint')
     const rpcUrl = core.getInput('solana-rpc-url')
 
     core.info('🔧 Setting up Fireblocks and Solana configuration files...')
@@ -35,7 +36,7 @@ export async function run(): Promise<void> {
     // Create Fireblocks config
     const fireblocksConfig = `api_key = "${fireblocksApiKey}"
 secret_path = "~/.config/fireblocks/sandbox.pem"
-url = "https://sandbox-api.fireblocks.io"
+url = "${fireblocksEndpoint}"
 [display]
 output = "Table"
 [signer]
