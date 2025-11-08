@@ -21,6 +21,10 @@ inputs:
     description: 'Fireblocks vault ID'
     required: false
     default: '0'
+  fireblocks-endpoint:
+    description: 'Fireblocks API endpoint URL'
+    required: false
+    default: 'https://sandbox-api.fireblocks.io'
   solana-rpc-url:
     description: 'Solana RPC URL'
     required: false

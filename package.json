@@ -1,17 +1,17 @@
 {
-  "name": "typescript-action",
-  "description": "GitHub Actions TypeScript template",
+  "name": "fireblocks-config-action",
+  "description": "GitHub Actions for Fireblocks configuration",
   "version": "1.0.2",
   "author": "",
   "type": "module",
   "private": true,
-  "homepage": "https://github.com/actions/typescript-action",
+  "homepage": "https://github.com/carteraMesh/fireblocks-config-action",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/actions/typescript-action.git"
   },
   "bugs": {
-    "url": "https://github.com/actions/typescript-action/issues"
+    "url": "https://github.com/carteraMesh/fireblocks-config-action/issues"
   },
   "keywords": [
     "actions"
