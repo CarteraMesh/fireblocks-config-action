@@ -27265,14 +27265,27 @@ var coreExports = requireCore();
 async function run() {
     try {
         // Get inputs
-        const fireblocksSecret = coreExports.getInput('fireblocks-secret');
-        const fireblocksApiKey = coreExports.getInput('fireblocks-api-key');
-        const fireblocksVault = coreExports.getInput('fireblocks-vault');
-        const fireblocksEndpoint = coreExports.getInput('fireblocks-endpoint');
-        const rpcUrl = coreExports.getInput('solana-rpc-url');
+        const fireblocksSecret = coreExports.getInput('fireblocks-secret', {
+            required: true
+        });
+        const fireblocksApiKey = coreExports.getInput('fireblocks-api-key', {
+            required: true
+        });
+        const fireblocksVault = coreExports.getInput('fireblocks-vault', {
+            required: true
+        });
+        const fireblocksEndpoint = coreExports.getInput('fireblocks-endpoint', {
+            required: false
+        }) || 'https://sandbox-api.fireblocks.io';
+        const commitment = coreExports.getInput('commitment', {
+            required: false
+        }) || 'finalized';
+        const rpcUrl = coreExports.getInput('solana-rpc-url', { required: true });
+        coreExports.info(`Using fireblocks endpoint ${fireblocksEndpoint}`);
         coreExports.info('🔧 Setting up Fireblocks and Solana configuration files...');
         // Create directories
-        const homeDir = require$$0.homedir();
+        const homeDir = process.env.FAKE ? '/tmp' : require$$0.homedir();
+        coreExports.info(`using $HOME ${homeDir}`);
         const fireblocksConfigDir = path.join(homeDir, '.config', 'fireblocks');
         const solanaConfigDir = path.join(homeDir, '.config', 'solana', 'cli');
         fs.mkdirSync(fireblocksConfigDir, { recursive: true });
@@ -27290,28 +27303,32 @@ output = "Table"
 [signer]
 poll_timeout = 120
 poll_interval = 5
-vault = "${fireblocksVault}"`;
-        const defaultConfigPath = path.join(fireblocksConfigDir, 'default.toml');
+vault = "${fireblocksVault}"
+
+[extra]
+solana_rpc_url = "${rpcUrl}"`;
+        const fireblocksConfigPath = path.join(fireblocksConfigDir, 'default.toml');
         const sandboxConfigPath = path.join(fireblocksConfigDir, 'sandbox.toml');
-        fs.writeFileSync(defaultConfigPath, fireblocksConfig);
+        fs.writeFileSync(fireblocksConfigPath, fireblocksConfig);
         fs.writeFileSync(sandboxConfigPath, fireblocksConfig);
-        coreExports.info('✅ Created Fireblocks configuration files');
+        coreExports.info(`✅ Created Fireblocks configuration files ${fireblocksConfigPath} and ${sandboxConfigPath}`);
         // Create Solana config
         const solanaConfig = `---
 keypair_path: "fireblocks://default"
 websocket_url: "wss://api.devnet.solana.com"
-commitment: finalized
+commitment: ${commitment}
 json_rpc_url: ${rpcUrl}`;
         const solanaConfigPath = path.join(solanaConfigDir, 'config.yml');
         fs.writeFileSync(solanaConfigPath, solanaConfig);
-        coreExports.info('✅ Created Solana configuration file');
+        coreExports.info(`✅ Created Solana configuration file ${solanaConfigPath}`);
         // Create Solana keypair file (fake keypair for testing)
         const solanaKeypair = '[142,66,83,178,186,150,12,117,220,68,184,164,196,191,93,214,80,246,160,55,81,158,122,197,73,49,97,86,229,65,96,235,101,155,178,255,13,45,251,194,5,242,23,233,109,19,157,253,56,175,36,184,43,68,233,90,44,76,24,205,176,2,213,130]';
         const solanaKeypairPath = path.join(solanaConfigDir, '..', 'id.json');
         fs.writeFileSync(solanaKeypairPath, solanaKeypair);
-        coreExports.info('✅ Created Solana keypair file');
+        coreExports.info(`✅ Created Solana keypair file ${solanaKeypairPath}`);
         // Set output
-        coreExports.setOutput('config-path', path.join(homeDir, '.config'));
+        coreExports.setOutput('solana-config-path', solanaConfigPath);
+        coreExports.setOutput('fireblocks-config-path', fireblocksConfigPath);
         coreExports.info('🎉 Configuration setup completed successfully!');
     }
     catch (error) {
