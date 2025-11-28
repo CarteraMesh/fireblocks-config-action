@@ -96,13 +96,17 @@ jobs:
 | `fireblocks-api-key`  | Fireblocks API key                         | ✅       | -                                     |
 | `fireblocks-vault`    | Fireblocks vault ID                        | ❌       | `"0"`                                 |
 | `fireblocks-endpoint` | Fireblocks API endpoint URL                | ❌       | `"https://sandbox-api.fireblocks.io"` |
-| `solana-rpc-url`      | Solana RPC URL                             | ❌       | `"https://api.devnet.solana.com"`     |
+| `solana-rpc-url`      | Solana RPC URL                             | ❌       | `"https://api.devnet.solana.com"`     
+|
+| `poll-timeout`      | how long to wait for sig in seconds                           | ❌       | `90`     
+| `poll-interval`      | how often to poll for signature in seconds              | ❌       | `5`     
 
 ## Outputs
 
 | Output        | Description                                               |
 | ------------- | --------------------------------------------------------- |
-| `config-path` | Path to the created configuration directory (`~/.config`) |
+| `solana-config-path` | Path to solana cli config |
+| `fireblocks-config-path` | Path to fireblocks signer config |
 
 ## What Gets Created
 
