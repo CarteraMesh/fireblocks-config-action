@@ -77,3 +77,9 @@ jobs:
           cat ~/.config/solana/id.json
           echo ---
           cat ~/.config/solana/cli/config.yml
+      - name: Check Outputs
+        run: |
+          echo cat ${{ steps.test-action.outputs.fireblocks-config-path }}
+          cat ${{ steps.test-action.outputs.fireblocks-config-path }}
+          echo cat ${{ steps.test-action.outputs.solana-config-path }}
+          cat ${{ steps.test-action.outputs.solana-config-path }}

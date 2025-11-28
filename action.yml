@@ -7,7 +7,7 @@ author: 'dchimento'
 # Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:
   icon: shield
-  color: orange
+  color: red
 
 # Define your inputs here.
 inputs:
@@ -29,11 +29,25 @@ inputs:
     description: 'Solana RPC URL'
     required: false
     default: 'https://api.devnet.solana.com'
+  commitment:
+    description: 'Solana commitment level'
+    required: false
+    default: 'finalized'
+  poll-timeout:
+    description: 'poll timeout in milliseconds'
+    required: false
+    default: '90'
+  poll-interval:
+    description: 'poll timeout in milliseconds'
+    required: false
+    default: '90'
 
 # Define your outputs here.
 outputs:
-  config-path:
-    description: 'Path to the created configuration directory'
+  solana-config-path:
+    description: 'solana cli config'
+  fireblocks-config-path:
+    description: 'fireblocks signer config'
 
 runs:
   using: node20
