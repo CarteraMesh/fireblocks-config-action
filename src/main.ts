@@ -30,9 +30,33 @@ export async function run(): Promise<void> {
         required: false
       }) || 'finalized'
 
+    const pollTimeout =
+      core.getInput('poll-timeout', {
+        required: false
+      }) || '120'
+    const pollInterval =
+      core.getInput('poll-interval', {
+        required: false
+      }) || '5'
     const rpcUrl = core.getInput('solana-rpc-url', { required: true })
+    const setEnvVars = core.getBooleanInput('set-env-vars')
+
     core.info(`Using fireblocks endpoint ${fireblocksEndpoint}`)
     core.info('🔧 Setting up Fireblocks and Solana configuration files...')
+
+    // Export enviro  nment variables if requested
+    if (setEnvVars) {
+      core.exportVariable('FIREBLOCKS_SECRET', fireblocksSecret)
+      core.exportVariable('FIREBLOCKS_API_KEY', fireblocksApiKey)
+      core.exportVariable('FIREBLOCKS_VAULT', fireblocksVault)
+      core.exportVariable('FIREBLOCKS_ENDPOINT', fireblocksEndpoint)
+      core.exportVariable('FIREBLOCKS_DEVNET', 'true')
+      core.exportVariable('FIREBLOCKS_POLL_TIMEOUT', pollTimeout)
+      core.exportVariable('FIREBLOCKS_POLL_INTERVAL', pollInterval)
+      core.exportVariable('RPC_URL', rpcUrl)
+      core.exportVariable('COMMITMENT', commitment)
+      core.info('✅ Exported environment variables')
+    }
 
     // Create directories
     const homeDir = process.env.FAKE ? '/tmp' : os.homedir()
@@ -55,8 +79,8 @@ url = "${fireblocksEndpoint}"
 [display]
 output = "Table"
 [signer]
-poll_timeout = 120
-poll_interval = 5
+poll_timeout = ${pollTimeout}
+poll_interval = ${pollInterval}
 vault = "${fireblocksVault}"
 
 [extra]
