@@ -41,6 +41,10 @@ inputs:
     description: 'poll timeout in milliseconds'
     required: false
     default: '90'
+  set-env-vars:
+    description: 'set environment variables'
+    required: false
+    default: 'false'
 
 # Define your outputs here.
 outputs:

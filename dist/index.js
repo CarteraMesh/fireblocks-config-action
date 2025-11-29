@@ -27273,9 +27273,29 @@ async function run() {
         const commitment = coreExports.getInput('commitment', {
             required: false
         }) || 'finalized';
+        const pollTimeout = coreExports.getInput('poll-timeout', {
+            required: false
+        }) || '120';
+        const pollInterval = coreExports.getInput('poll-interval', {
+            required: false
+        }) || '5';
         const rpcUrl = coreExports.getInput('solana-rpc-url', { required: true });
+        const setEnvVars = coreExports.getBooleanInput('set-env-vars');
         coreExports.info(`Using fireblocks endpoint ${fireblocksEndpoint}`);
         coreExports.info('🔧 Setting up Fireblocks and Solana configuration files...');
+        // Export enviro  nment variables if requested
+        if (setEnvVars) {
+            coreExports.exportVariable('FIREBLOCKS_SECRET', fireblocksSecret);
+            coreExports.exportVariable('FIREBLOCKS_API_KEY', fireblocksApiKey);
+            coreExports.exportVariable('FIREBLOCKS_VAULT', fireblocksVault);
+            coreExports.exportVariable('FIREBLOCKS_ENDPOINT', fireblocksEndpoint);
+            coreExports.exportVariable('FIREBLOCKS_DEVNET', 'true');
+            coreExports.exportVariable('FIREBLOCKS_POLL_TIMEOUT', pollTimeout);
+            coreExports.exportVariable('FIREBLOCKS_POLL_INTERVAL', pollInterval);
+            coreExports.exportVariable('RPC_URL', rpcUrl);
+            coreExports.exportVariable('COMMITMENT', commitment);
+            coreExports.info('✅ Exported environment variables');
+        }
         // Create directories
         const homeDir = process.env.FAKE ? '/tmp' : require$$0.homedir();
         coreExports.info(`using $HOME ${homeDir}`);
@@ -27294,8 +27314,8 @@ url = "${fireblocksEndpoint}"
 [display]
 output = "Table"
 [signer]
-poll_timeout = 120
-poll_interval = 5
+poll_timeout = ${pollTimeout}
+poll_interval = ${pollInterval}
 vault = "${fireblocksVault}"
 
 [extra]

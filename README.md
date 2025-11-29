@@ -52,6 +52,24 @@ steps:
       solana-rpc-url: 'https://api.mainnet-beta.solana.com'
 ```
 
+### With Environment Variables
+
+```yaml
+steps:
+  - name: Setup configs with environment variables
+    uses: CarteraMesh/fireblocks-config-action@v1
+    with:
+      fireblocks-secret: ${{ secrets.FIREBLOCKS_SECRET }}
+      fireblocks-api-key: ${{ secrets.FIREBLOCKS_API_KEY }}
+      set-env-vars: 'true'
+
+  - name: Use environment variables
+    run: |
+      echo "Fireblocks endpoint: $FIREBLOCKS_ENDPOINT"
+      echo "Vault ID: $FIREBLOCKS_VAULT"
+      # FIREBLOCKS_SECRET, FIREBLOCKS_API_KEY, SOLANA_RPC_URL, COMMITMENT also available
+```
+
 ### Complete Workflow Example
 
 ```yaml
@@ -96,16 +114,17 @@ jobs:
 | `fireblocks-api-key`  | Fireblocks API key                         | ✅       | -                                     |
 | `fireblocks-vault`    | Fireblocks vault ID                        | ❌       | `"0"`                                 |
 | `fireblocks-endpoint` | Fireblocks API endpoint URL                | ❌       | `"https://sandbox-api.fireblocks.io"` |
-| `solana-rpc-url`      | Solana RPC URL                             | ❌       | `"https://api.devnet.solana.com"`     
-|
-| `poll-timeout`      | how long to wait for sig in seconds                           | ❌       | `90`     
-| `poll-interval`      | how often to poll for signature in seconds              | ❌       | `5`     
+| `solana-rpc-url`      | Solana RPC URL                             | ❌       | `"https://api.devnet.solana.com"`     |
+| `poll-timeout`        | how long to wait for sig in seconds        | ❌       | `90`                                  |
+| `poll-interval`       | how often to poll for signature in seconds | ❌       | `5`                                   |
+| `commitment`          | solana rpc commitment level                | ❌       | `finalized`                           |
+| `set-env-vars`        | export inputs as environment variables     | ❌       | `false`                               |
 
 ## Outputs
 
-| Output        | Description                                               |
-| ------------- | --------------------------------------------------------- |
-| `solana-config-path` | Path to solana cli config |
+| Output                   | Description                      |
+| ------------------------ | -------------------------------- |
+| `solana-config-path`     | Path to solana cli config        |
 | `fireblocks-config-path` | Path to fireblocks signer config |
 
 ## What Gets Created
@@ -176,11 +195,11 @@ No manual cleanup step is required!
 ## Contributing
 
 1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run tests: `npm test`
-5. Build: `npm run build`
-6. Submit a pull request
+1. Create a feature branch
+1. Make your changes
+1. Run tests: `npm test`
+1. Build: `npm run build`
+1. Submit a pull request
 
 ## License
 

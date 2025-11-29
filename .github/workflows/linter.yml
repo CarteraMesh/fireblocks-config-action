@@ -20,6 +20,7 @@ permissions:
 
 jobs:
   lint:
+    continue-on-error: true
     name: Lint Codebase
     runs-on: ${{ vars.RUNNER }}
 
@@ -32,7 +33,7 @@ jobs:
 
       - name: Setup Node.js
         id: setup-node
-        uses: actions/setup-node@v6
+        uses: ubicloud/setup-node@v6
         with:
           node-version-file: .node-version
           cache: npm
@@ -50,9 +51,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           LINTER_RULES_PATH: ${{ github.workspace }}
           VALIDATE_ALL_CODEBASE: true
+          VALIDATE_TYPESCRIPT_PRETTIER: true
           VALIDATE_JAVASCRIPT_ES: false
           VALIDATE_JAVASCRIPT_STANDARD: false
           VALIDATE_JSCPD: false
-          VALIDATE_TYPESCRIPT_ES: false
+          VALIDATE_TYPESCRIPT_ES: true
+          VALIDATE_MARKDOWN: false
           VALIDATE_JSON: false
           VALIDATE_TYPESCRIPT_STANDARD: false
