@@ -54,6 +54,6 @@ outputs:
     description: 'fireblocks signer config'
 
 runs:
-  using: node20
+  using: node24
   main: dist/index.js
   post: dist/post.js
