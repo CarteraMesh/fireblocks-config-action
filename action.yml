@@ -40,7 +40,7 @@ inputs:
   poll-interval:
     description: 'poll timeout in milliseconds'
     required: false
-    default: '90'
+    default: '5'
   set-env-vars:
     description: 'set environment variables'
     required: false
