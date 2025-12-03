@@ -61,7 +61,11 @@ export async function run(): Promise<void> {
     // Create directories
     const homeDir = process.env.FAKE ? '/tmp' : os.homedir()
     core.info(`using $HOME ${homeDir}`)
-    const fireblocksConfigDir = path.join(homeDir, '.config', 'fireblocks')
+    // detect macOS and put in  'Library/Application Support/
+    const fireblocksConfigDir =
+      process.platform === 'darwin'
+        ? path.join(homeDir, 'Library', 'Application Support', 'fireblocks')
+        : path.join(homeDir, '.config', 'fireblocks')
     const solanaConfigDir = path.join(homeDir, '.config', 'solana', 'cli')
 
     fs.mkdirSync(fireblocksConfigDir, { recursive: true })

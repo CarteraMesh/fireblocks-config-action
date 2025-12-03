@@ -1,10 +1,4 @@
-# This workflow will lint the entire codebase using the
-# `super-linter/super-linter` action.
-#
-# For more information, see the super-linter repository:
-#     https://github.com/super-linter/super-linter
 name: Lint Codebase
-
 on:
   pull_request:
     branches:
@@ -16,7 +10,6 @@ on:
 permissions:
   contents: read
   packages: read
-  statuses: write
 
 jobs:
   lint:
@@ -44,18 +37,4 @@ jobs:
 
       - name: Lint Codebase
         id: super-linter
-        uses: super-linter/super-linter/slim@v8
-        env:
-          DEFAULT_BRANCH: main
-          FILTER_REGEX_EXCLUDE: dist/**/*
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          LINTER_RULES_PATH: ${{ github.workspace }}
-          VALIDATE_ALL_CODEBASE: true
-          VALIDATE_TYPESCRIPT_PRETTIER: true
-          VALIDATE_JAVASCRIPT_ES: false
-          VALIDATE_JAVASCRIPT_STANDARD: false
-          VALIDATE_JSCPD: false
-          VALIDATE_TYPESCRIPT_ES: true
-          VALIDATE_MARKDOWN: false
-          VALIDATE_JSON: false
-          VALIDATE_TYPESCRIPT_STANDARD: false
+        run: npm run format:check && npm run lint
