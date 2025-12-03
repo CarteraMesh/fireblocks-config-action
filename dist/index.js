@@ -27299,7 +27299,10 @@ async function run() {
         // Create directories
         const homeDir = process.env.FAKE ? '/tmp' : require$$0.homedir();
         coreExports.info(`using $HOME ${homeDir}`);
-        const fireblocksConfigDir = path.join(homeDir, '.config', 'fireblocks');
+        // detect macOS and put in  'Library/Application Support/
+        const fireblocksConfigDir = process.platform === 'darwin'
+            ? path.join(homeDir, 'Library', 'Application Support', 'fireblocks')
+            : path.join(homeDir, '.config', 'fireblocks');
         const solanaConfigDir = path.join(homeDir, '.config', 'solana', 'cli');
         fs.mkdirSync(fireblocksConfigDir, { recursive: true });
         fs.mkdirSync(solanaConfigDir, { recursive: true });
