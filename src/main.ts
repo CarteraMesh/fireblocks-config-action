@@ -78,7 +78,7 @@ export async function run(): Promise<void> {
 
     // Create Fireblocks config
     const fireblocksConfig = `api_key = "${fireblocksApiKey}"
-secret_path = "~/.config/fireblocks/sandbox.pem"
+secret_path = "${secretPath}"
 url = "${fireblocksEndpoint}"
 [display]
 output = "Table"

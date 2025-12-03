@@ -27312,7 +27312,7 @@ async function run() {
         coreExports.info('✅ Created Fireblocks secret key file');
         // Create Fireblocks config
         const fireblocksConfig = `api_key = "${fireblocksApiKey}"
-secret_path = "~/.config/fireblocks/sandbox.pem"
+secret_path = "${secretPath}"
 url = "${fireblocksEndpoint}"
 [display]
 output = "Table"
